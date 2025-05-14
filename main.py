@@ -15,6 +15,7 @@ logging.basicConfig(
     filename='tbot.log',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
+    # DATE TIME LEVEL(ERROR/INFO) MESSAGE
 )
 
 def main():
@@ -22,6 +23,7 @@ def main():
     bot = TBot(API_KEY, API_SECRET)
     symbol, side, order_type, quantity, price, stop_price = get_user_input()
 
+    # Mainly for CLI interface, doesn't trigger for streamlit GUI.
     if side not in [SIDE_BUY, SIDE_SELL]:
         print("Invalid side. Must be one of: BUY, SELL")
         return
@@ -29,6 +31,7 @@ def main():
         print("Invalid order type, Must be one of: MARKET, LIMIT, STOP_MARKET")
         return
 
+    # Send to Binance Testnet
     try:
         result = bot.place_order(
             symbol=symbol,
