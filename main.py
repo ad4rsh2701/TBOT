@@ -2,8 +2,7 @@ import os
 import logging
 from dotenv import load_dotenv
 from binance.enums import *
-
-from tbot.core import TBot
+from tbot.core import TBot, FUTURE_ORDER_TYPE_STOP_MARKET
 from ui.cli import get_user_input
 
 # Load env vars
@@ -21,13 +20,13 @@ logging.basicConfig(
 def main():
     """Main entrypoint for the bot."""
     bot = TBot(API_KEY, API_SECRET)
-    symbol, side, order_type, quantity, price = get_user_input()
+    symbol, side, order_type, quantity, price, stop_price = get_user_input()
 
     if side not in [SIDE_BUY, SIDE_SELL]:
         print("Invalid side. Must be one of: BUY, SELL")
         return
-    if order_type not in [ORDER_TYPE_MARKET, ORDER_TYPE_LIMIT]:
-        print("Invalid order type. Must be one of: MARKET, LIMIT")
+    if order_type not in [ORDER_TYPE_MARKET, ORDER_TYPE_LIMIT, FUTURE_ORDER_TYPE_STOP_MARKET]:
+        print("Invalid order type, Must be one of: MARKET, LIMIT, STOP_MARKET")
         return
 
     try:
@@ -37,6 +36,7 @@ def main():
             order_type=order_type,
             quantity=quantity,
             price=price,
+            stop_price=stop_price
         )
         print(f"Order placed successfully: {result}")
     except Exception as e:
