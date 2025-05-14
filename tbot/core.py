@@ -36,3 +36,12 @@ class TBot:
         except Exception as e:
             logging.error("Error placing order: %s", str(e))
             raise e
+   
+   # getting the supported symbols
+    def get_symbols(self):
+        try:
+            info = self.client.futures_exchange_info()
+            return [s['symbol'] for s in info['symbols'] if s['contractType'] == 'PERPETUAL']
+        except Exception as e:
+            logging.error("Error fetching symbols: %s", str(e))
+            return []
