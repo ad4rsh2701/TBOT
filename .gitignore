@@ -88,3 +88,6 @@ pyvenv.cfg
 .mypy_cache/
 
 # What will I do without AI overlords, VERY HELPFUL FOR GITIGNORE (the only thing I can get it to produce something for me T-T)
+
+# env files.. nvm my AI can't even produce a proper gitignore..
+.env
